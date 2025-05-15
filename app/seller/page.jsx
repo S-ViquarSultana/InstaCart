@@ -25,12 +25,12 @@ const AddProduct = () => {
           <div className="flex flex-wrap items-center gap-3 mt-2">
 
             {[...Array(4)].map((_, index) => (
-              <label key={index} htmlFor={`image${index}`}>
+              <label key={index} htmlFor={`image₹{index}`}>
                 <input onChange={(e) => {
                   const updatedFiles = [...files];
                   updatedFiles[index] = e.target.files[0];
                   setFiles(updatedFiles);
-                }} type="file" id={`image${index}`} hidden />
+                }} type="file" id={`image₹{index}`} hidden />
                 <Image
                   key={index}
                   className="max-w-24 cursor-pointer"
