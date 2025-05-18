@@ -1,6 +1,4 @@
 import { getAuth } from "@clerk/nextjs/server";
-import connectDB from "@/config/db";
-import Order from "@/models/Order";
 import { NextResponse } from "next/server";
 import Product from "@/models/Product";
 import { inngest } from "@/config/inngest";
@@ -15,10 +13,10 @@ export async function POST(request) {
         }
 
         // calculate amount using items
-        const amount = await items.reduce((acc, item) => {
-            const product = await Product.findById(item.productId);
+        const amount = await items.reduce(async (acc, item) => {
+            const product = await Product.findById(item.product);
             return acc + product.offerPrice * item.quantity;
-        }, 0);
+        },0);
 
 
 
@@ -35,7 +33,7 @@ export async function POST(request) {
 
 
         // clear user cart
-        const user = await User.findById(userId);
+        const user = await user.findById(userId);
         user.cartItems = {};
 
         await user.save();
