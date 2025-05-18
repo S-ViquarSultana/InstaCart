@@ -10,15 +10,21 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.19.3",
+    "axios": "^1.9.0",
+    "cloudinary": "^2.6.1",
     "inngest": "^3.35.1",
     "mongoose": "^8.14.3",
     "next": "^15.3.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/bunyan": "^1.8.11",
+    "@types/memcached": "^2.2.10",
+    "@types/react": "19.1.4",
+    "@types/shimmer": "^1.2.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "postcss": "^8",

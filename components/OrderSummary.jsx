@@ -1,17 +1,37 @@
 import { addressDummyData } from "@/assets/assets";
 import { useAppContext } from "@/context/AppContext";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const OrderSummary = () => {
 
-  const { currency, router, getCartCount, getCartAmount } = useAppContext()
+  const { currency, router, getCartCount, getCartAmount, getToken, user, cartItems, setCartItema } = useAppContext()
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [userAddresses, setUserAddresses] = useState([]);
 
   const fetchUserAddresses = async () => {
-    setUserAddresses(addressDummyData);
+
+    try {
+      const token = await getToken();
+
+      const { data } = await axios.get('/api/user/get-address', { headers: { Authorization: `Bearer ${token}` } });
+
+      if (data.success) {
+        setUserAddresses(data.addresses);
+        if (data.addresses.length > 0) {
+        setSelectedAddress(data.addresses[0]);
+      }
+     } else {
+        toast.error(data.message);
+      }
+ 
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message || "Something went wrong");
+    }
   }
 
   const handleAddressSelect = (address) => {
@@ -24,8 +44,10 @@ const OrderSummary = () => {
   }
 
   useEffect(() => {
+    if (user) {
     fetchUserAddresses();
-  }, [])
+    }
+  }, [user])
 
   return (
     <div className="w-full md:w-96 bg-gray-500/5 p-5">
@@ -87,7 +109,7 @@ const OrderSummary = () => {
               placeholder="Enter promo code"
               className="flex-grow w-full outline-none p-2.5 text-gray-600 border"
             />
-            <button className="bg-orange-600 text-white px-9 py-2 hover:bg-orange-700">
+            <button className="bg-blue-600 text-white px-9 py-2 hover:bg-blue-700">
               Apply
             </button>
           </div>
@@ -115,7 +137,7 @@ const OrderSummary = () => {
         </div>
       </div>
 
-      <button onClick={createOrder} className="w-full bg-orange-600 text-white py-3 mt-5 hover:bg-orange-700">
+      <button onClick={createOrder} className="w-full bg-blue-600 text-white py-3 mt-5 hover:bg-blue-700">
         Place Order
       </button>
     </div>
