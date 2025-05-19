@@ -39,7 +39,7 @@ A modern eCommerce platform offering separate dashboards for customers and selle
 - React.js
 - Tailwind CSS
 - Node.js
-- Firebase (or your backend)
+- Next.js
 
 ## 📬 Contact
 
