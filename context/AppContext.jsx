@@ -144,7 +144,7 @@ export const AppContextProvider = (props) => {
         if (user) {
             fetchProductData();
         }
-    }, [user]);
+    }, []);
 
     useEffect(() => {
         if (user) {
