@@ -2,8 +2,6 @@ import User from "@/models/User";
 import { Inngest } from "inngest";
 import connectDB from "@/config/db";
 import Order from "@/models/Order";             
-import { NextRequest } from "next/server";
-import { getAuth } from "@clerk/nextjs/server";
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "instacart-next" });
@@ -67,7 +65,7 @@ export const createUserOrder = inngest.createFunction(
         id: "create-user-order", 
         batchEvents: {
             maxSize: 25,
-            timeout: '5seconds',
+            timeout: '5s',
         }
     },
     { event: 'order/created' },
